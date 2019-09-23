@@ -1,5 +1,5 @@
 import React from 'react'
-import TextField from "@material-ui/core/TextField";
+import TextField from "@material-ui/core/TextField"
 import { Formik, Field, Form } from "formik";
 import Paper from "@material-ui/core/Paper";
 import Grid from '@material-ui/core/Grid'
@@ -13,19 +13,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import * as Yup from 'yup'
 import { TextField as FormikTextField, RadioGroup as FormikRadioGroup, CheckboxWithLabel as FormikCheckboxWithLabel} from 'formik-material-ui'
 
-const CustomInputComponent = ({
-  field, // { name, value, onChange, onBlur }
-  form: { touched, errors }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
-  ...props
-}) => (
-  <TextField {...field} {...props}
-            fullWidth
-            value={field.value}
-            onChange={field.onChange}
-            onBlur={field.onBlur}
-            error={errors[field.name] && touched[field.name]}
-            helperText={(errors[field.name] && touched[field.name]) && errors[field.name]}/>
-)
+import CustomInputComponent from '../components/Formik/CustomInputComponent'
 
 const RegisterForm = (props) => {
   const {
@@ -44,75 +32,39 @@ const RegisterForm = (props) => {
      <Grid container spacing={7}>
      <Grid item xs={12} sm={6}>
           <TextField
-            id="firstname"
-            name="firstname"
-            label="Nombre"
-            fullWidth
-            error={errors.firstname && touched.firstname}
-            value={values.firstname}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            helperText={(errors.firstname && touched.firstname) && errors.firstname}
-          />
+            name="firstname" label="Nombre" fullWidth helperText={(errors.firstname && touched.firstname) && errors.firstname}
+            value={values.firstname} error={errors.firstname && touched.firstname}
+            onChange={handleChange} onBlur={handleBlur}/>
         </Grid>
         <Grid item xs={12} sm={6}>
-          <Field
-            id="lastname"
-            name="lastname"
-            label="Apellido"
-            fullWidth
-            component={CustomInputComponent}
-          />
+          <Field name="lastname" label="Apellido" fullWidth component={CustomInputComponent}/>
         </Grid>
         <Grid item xs={12} sm={6}>
-          <Field
-            id="email"
-            name="email"
-            label="Email"
-            fullWidth
-            component={FormikTextField}
-          />
+          <Field name="email" label="Email" fullWidth component={FormikTextField}/>
         </Grid>
         <Grid item xs={12} sm={6}>
-          <Field
-            id="username"
-            name="username"
-            label="Usuario"
-            fullWidth
-            component={FormikTextField}
-          />
+          <Field name="username" label="Usuario" fullWidth component={FormikTextField}/>
         </Grid>
         <Grid item xs={12} sm={6}>
         <FormControl>
-          <Field name="genero" id="genero" label="Género" component={FormikRadioGroup}>
+          <Field name="genero" label="Género" component={FormikRadioGroup}>
             <FormControlLabel value="female" control={<Radio />} label="Femenino" />
             <FormControlLabel value="male" control={<Radio />} label="Masculino" />
           </Field>
         </FormControl>
         </Grid>
         <Grid item xs={12} sm={6}>
-          <Field
-            type="text"
-            select
-            label="Residencia"
-            name="residencia"
-            id="residencia"
-            component={FormikTextField}
+          <Field type="text" select label="Residencia" name="residencia" component={FormikTextField}
             helperText="Seleccione lugar de Residencia"
-            inputProps={{name: 'residencia', id: 'residencia'}}
-          >
+            inputProps={{name: 'residencia', id: 'residencia'}}>
             <MenuItem value="1">Primer Mundo</MenuItem>
             <MenuItem value="2">Tercer Mundo</MenuItem>
             <MenuItem value="3">Argentina</MenuItem>
           </Field>
         </Grid>
         <Grid item xs={12}>
-        <Field
-            Label={{ label: 'Acepto términos y condiciones' }}
-            name="terms"
-            component={FormikCheckboxWithLabel}
-          />
-      </Grid>
+          <Field Label={{ label: 'Acepto términos y condiciones' }} name="terms" component={FormikCheckboxWithLabel}/>
+        </Grid>
           <Button color="primary" type="submit" disabled={!dirty || isSubmitting}>
             Registrarme
           </Button>
@@ -126,8 +78,6 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(3, 7),
   }
 }))
-
-
 
 const FormikExampleForm = (props)=> {
   const classes = useStyles()

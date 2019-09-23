@@ -111,7 +111,7 @@ export default ()=> {
       <Typography variant="h4" gutterBottom>
         Vanilla JS example
       </Typography>
-      <Grid container spacing={3}>
+      <Grid container spacing={7}>
         <Grid item xs={12} sm={6}>
           <TextField
             value={firstname}
