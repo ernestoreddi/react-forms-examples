@@ -1,25 +1,17 @@
 import React, {useState} from 'react'
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import FormControl from '@material-ui/core/FormControl'
 import Radio from '@material-ui/core/Radio'
 import RadioGroup from '@material-ui/core/RadioGroup'
 import Checkbox from '@material-ui/core/Checkbox';
-import { makeStyles } from '@material-ui/core/styles'
-import Paper from "@material-ui/core/Paper"
 import InputLabel from '@material-ui/core/InputLabel'
 import Select from '@material-ui/core/Select'
 import Button from '@material-ui/core/Button'
+import Layout from '../components/Layout'
 
-const useStyles = makeStyles(theme => ({
-  paper: {
-    padding: theme.spacing(3, 7),
-  }
-}))
 export default ()=> {
-  const classes = useStyles()
   const [firstname, setFirstname] = useState("")
   const [lastname, setLastname] = useState("")
   const [email, setEmail] = useState("")
@@ -90,27 +82,15 @@ export default ()=> {
       event.preventDefault() 
     } else {
       event.preventDefault() 
-      console.log(
-        {
-          firstname,
-          lastname,
-          email,
-          username,
-          genero,
-          residencia,
-          terms
-        }
-      )
+      console.log({ firstname, lastname, email, username, genero, residencia, terms})
       setIsDirty(false)
     }
     
   }
   return (
-    <form onSubmit={submit}>
-    <Paper elevation={1} className={classes.paper}>
-      <Typography variant="h4" gutterBottom>
-        Vanilla JS example
-      </Typography>
+    
+    <Layout title="Vanilla JS example">
+      <form onSubmit={submit}>
       <Grid container spacing={7}>
         <Grid item xs={12} sm={6}>
           <TextField
@@ -193,6 +173,7 @@ export default ()=> {
             Registrarme
           </Button>
       </Grid>
-    </Paper>
-    </form>)
+      </form>
+    </Layout>
+    )
 }

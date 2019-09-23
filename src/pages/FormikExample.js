@@ -1,18 +1,16 @@
 import React from 'react'
 import TextField from "@material-ui/core/TextField"
 import { Formik, Field, Form } from "formik";
-import Paper from "@material-ui/core/Paper";
 import Grid from '@material-ui/core/Grid'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import FormControl from '@material-ui/core/FormControl'
 import Radio from '@material-ui/core/Radio'
 import Button from '@material-ui/core/Button'
 import MenuItem from '@material-ui/core/MenuItem'
-import Typography from '@material-ui/core/Typography'
-import { makeStyles } from '@material-ui/core/styles'
 import * as Yup from 'yup'
 import { TextField as FormikTextField, RadioGroup as FormikRadioGroup, CheckboxWithLabel as FormikCheckboxWithLabel} from 'formik-material-ui'
 
+import Layout from '../components/Layout'
 import CustomInputComponent from '../components/Formik/CustomInputComponent'
 
 const RegisterForm = (props) => {
@@ -36,9 +34,7 @@ const RegisterForm = (props) => {
             value={values.firstname} error={errors.firstname && touched.firstname}
             onChange={handleChange} onBlur={handleBlur}/>
         </Grid>
-        <Grid item xs={12} sm={6}>
           <Field name="lastname" label="Apellido" fullWidth component={CustomInputComponent}/>
-        </Grid>
         <Grid item xs={12} sm={6}>
           <Field name="email" label="Email" fullWidth component={FormikTextField}/>
         </Grid>
@@ -72,20 +68,11 @@ const RegisterForm = (props) => {
    </Form>
 
  );
-};
-const useStyles = makeStyles(theme => ({
-  paper: {
-    padding: theme.spacing(3, 7),
-  }
-}))
+}
 
 const FormikExampleForm = (props)=> {
-  const classes = useStyles()
   return (
-    <Paper elevation={1} className={classes.paper}>
-      <Typography variant="h4" gutterBottom>
-        Formik example
-      </Typography>  
+    <Layout title="Formik example"> 
           <Formik 
           initialValues={{
             firstname: '',
@@ -95,7 +82,6 @@ const FormikExampleForm = (props)=> {
             residencia: '',
             genero:'',
             terms: false
-
           }}
           validationSchema={Yup.object().shape({
             firstname: Yup.string()
@@ -113,6 +99,6 @@ const FormikExampleForm = (props)=> {
             setSubmitting(false)
           }}
           render={props => <RegisterForm {...props} />}/>
-    </Paper>)
+    </Layout>)
 }
 export default FormikExampleForm
