@@ -1,25 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {Fragment} from 'react'
+import { Router} from "@reach/router"
+
+//Pages
+import Home from './pages/Home'
+import FormikExample from './pages/FormikExample'
+import ReduxFormExample from './pages/ReduxFormExample'
+import VanillaJSExample from './pages/VanillaJSExample'
+
+//Components
+import Header from './components/Header'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Fragment>
+      <Header/>
+      <Router>
+            <Home path="/" />
+            <FormikExample path="formik" />
+            <ReduxFormExample path="reduxforms" />
+            <VanillaJSExample path="vanillajs" />
+      </Router>
+    </Fragment>
   );
 }
 
