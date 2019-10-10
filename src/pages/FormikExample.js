@@ -22,11 +22,11 @@ const RegisterForm = (props) => {
     isSubmitting,
     handleChange,
     handleBlur,
-    handleSubmit,
-   // handleReset,
+    //setFieldValue
   } = props
+
   return (
-   <Form onSubmit={handleSubmit}>
+   <Form>
      <Grid container spacing={7}>
      <Grid item xs={12} sm={6}>
           <TextField
@@ -70,35 +70,68 @@ const RegisterForm = (props) => {
  );
 }
 
+
+function emailTaken(ref, msg) {
+	return this.test({
+		name: 'emailTaken',
+		exclusive: false,
+    message: msg || 'El email ya fue registrado',
+    
+    test: function (value) {
+      return new Promise(resolve => {
+        setTimeout(() => {
+          resolve(value !== "ernesto.reddi@gmail.com");
+        }, 1000);
+      });
+    }
+	})
+};
+
+Yup.addMethod(Yup.string, 'emailTaken', emailTaken);
+
+
 const FormikExampleForm = (props)=> {
   return (
     <Layout title="Formik example"> 
           <Formik 
-          initialValues={{
-            firstname: '',
-            lastname: '',
-            email: '',
-            username: '',
-            residencia: '',
-            genero:'',
-            terms: false
-          }}
-          validationSchema={Yup.object().shape({
-            firstname: Yup.string()
-              .required('Nombre Requerido'),
-            lastname: Yup.string()
-              .required('Apellido Requerido'),
-            username: Yup.string()
-              .required('Nombre de usuario Requerido'),
-            email: Yup.string()
-              .required('Email Requerido').email('Ingrese una casilla de e-mail válida')
-          })}
+            initialValues={{
+              firstname: '',
+              lastname: '',
+              email: '',
+              username: '',
+              residencia: '',
+              genero:'',
+              terms: false
+            }}
+            validationSchema={Yup.object().shape({
+              firstname: Yup.string()
+                .required('Nombre Requerido'),
+              lastname: Yup.string()
+                .required('Apellido Requerido'),
+              username: Yup.string()
+                .required('Nombre de usuario Requerido'),
+              email: Yup.string()
+                .required('Email Requerido').email('Ingrese una casilla de e-mail válida')//.emailTaken()
+            })}
 
-          onSubmit={(values, { setSubmitting }) => {
-            console.log(values)
-            setSubmitting(false)
-          }}
-          render={props => <RegisterForm {...props} />}/>
+            onSubmit={(values, { setSubmitting }) => {
+              console.log(values)
+              setSubmitting(false)
+            }}>
+            {props => <RegisterForm {...props} />}
+          </Formik>
     </Layout>)
 }
 export default FormikExampleForm
+
+/*
+            <TextField
+              name="email" label="Email" fullWidth helperText={(errors.firstname && touched.email) && errors.email}
+              value={values.email} error={errors.email && touched.email}
+              onBlur={handleBlur} onChange={(e) => {
+                                              const newValue = e.target.value.split("@")[0]
+                                              setFieldValue('email', e.target.value)
+                                              setFieldValue('username', newValue)
+            }}/> 
+            
+            */
